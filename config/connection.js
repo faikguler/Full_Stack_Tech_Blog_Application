@@ -7,25 +7,7 @@ if (process.env.DB_PASSWORD === "ChangeMe!") {
   process.exit(1);
 }
 
-let sequelize;
-
-if (process.env.DATABASE_URL) {
-  // Render PostgreSQL because render needed
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
-    protocol: 'postgres',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false 
-      }
-    },
-    logging: false,
-  });
-} 
-else
-{
-  sequelize = process.env.JAWSDB_URL
+const sequelize = process.env.JAWSDB_URL
   ? new Sequelize(process.env.JAWSDB_URL)
   : new Sequelize(
       process.env.DB_DATABASE,
@@ -37,5 +19,5 @@ else
         port: process.env.DB_PORT,
       }
     );
-}
+    
 module.exports = sequelize;
